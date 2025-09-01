@@ -35,3 +35,52 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Go build artifacts
+terraform-provider-multipass
+dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go test binary, built with `go test -c`
+*.test
+
+# Go coverage files
+*.out
+coverage.txt
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Development and testing
+.env
+.env.local
+
+# Claude Code and Serena directories
+.claude/
+.serena/
+
+# Goreleaser
+dist/
+*.tar.gz
+*.zip
+*SHA256SUMS*
+
+# Generated documentation
+docs/

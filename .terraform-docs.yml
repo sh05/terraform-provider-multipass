@@ -1,0 +1,40 @@
+version: ">= 0.16"
+
+formatter: "markdown document"
+
+header-from: "README.md"
+
+sections:
+  show:
+    - header
+    - providers
+    - requirements
+    - resources
+    - data-sources
+    - modules
+    - inputs
+    - outputs
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  indent: 2
+  html: true
+  required: true
+  sensitive: true
+  type: true
+
+sort:
+  enabled: true
+  by: name
+
+output:
+  file: README.md
+  mode: replace
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->

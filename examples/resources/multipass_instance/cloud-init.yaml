@@ -1,0 +1,20 @@
+#cloud-config
+
+# Update packages
+package_update: true
+packages:
+  - nginx
+  - git
+
+# Create a simple web page
+write_files:
+  - path: /var/www/html/index.html
+    content: |
+      <h1>Hello from Multipass!</h1>
+      <p>This instance was configured with cloud-init.</p>
+    permissions: '0644'
+
+# Start nginx
+runcmd:
+  - systemctl enable nginx
+  - systemctl start nginx
