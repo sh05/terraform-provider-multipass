@@ -30,7 +30,7 @@ Demonstrates how to use the retrieved data:
 
 ## Files
 
-- `data-source.tf` - Terraform configuration with data source examples
+- `data-source.tf` - OpenTofu configuration with data source examples
 
 ## Usage
 
@@ -43,14 +43,14 @@ Demonstrates how to use the retrieved data:
 
 3. Initialize and apply:
    ```bash
-   terraform init
-   terraform plan
-   terraform apply
+   tofu init
+   tofu plan
+   tofu apply
    ```
 
 4. View the outputs:
    ```bash
-   terraform output
+   tofu output
    ```
 
 ## Expected Output

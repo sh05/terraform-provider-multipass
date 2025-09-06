@@ -31,21 +31,21 @@ Creates an instance with cloud-init configuration:
 
 ## Files
 
-- `resource.tf` - Terraform configuration with all three examples
+- `resource.tf` - OpenTofu configuration with all three examples
 - `cloud-init.yaml` - Cloud-init configuration for the third example
 - `import.sh` - Example script for importing existing instances
 
 ## Usage
 
 1. Choose which example to use and modify `resource.tf` accordingly
-2. Initialize Terraform:
+2. Initialize OpenTofu:
    ```bash
-   terraform init
+   tofu init
    ```
 3. Plan and apply:
    ```bash
-   terraform plan
-   terraform apply
+   tofu plan
+   tofu apply
    ```
 
 ## Verifying Cloud-Init Configuration
@@ -91,5 +91,5 @@ To import an existing Multipass instance, use the import script:
 
 Or manually:
 ```bash
-terraform import multipass_instance.example instance-name
+tofu import multipass_instance.example instance-name
 ```

@@ -1,6 +1,6 @@
 # Provider Configuration Examples
 
-This directory contains examples of how to configure the Multipass Terraform provider.
+This directory contains examples of how to configure the Multipass OpenTofu provider.
 
 ## Prerequisites
 
@@ -20,13 +20,13 @@ The Multipass provider currently requires minimal configuration. The provider au
 
 ## Usage
 
-This provider configuration can be used as a starting point for any Terraform configuration using the Multipass provider:
+This provider configuration can be used as a starting point for any OpenTofu configuration using the Multipass provider:
 
 ```hcl
 terraform {
   required_providers {
     multipass = {
-      source = "registry.terraform.io/sh05/multipass"
+      source = "registry.opentofu.org/sh05/multipass"
       version = "~> 0.1.0"
     }
   }
@@ -60,5 +60,5 @@ If you encounter issues:
 
 3. Ensure the provider is properly installed:
    ```bash
-   terraform init
+   tofu init
    ```

@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     multipass = {
-      source = "registry.terraform.io/sh05/multipass"
+      source  = "registry.opentofu.org/sh05/multipass"
       version = "~> 0.1.0"
     }
   }
@@ -20,7 +20,7 @@ resource "multipass_instance" "example" {
 
 # Get VM information using data source
 data "multipass_instance" "example_info" {
-  name = multipass_instance.example.name
+  name       = multipass_instance.example.name
   depends_on = [multipass_instance.example]
 }
 

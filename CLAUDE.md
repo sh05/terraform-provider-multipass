@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **completed and functional** Terraform provider for Canonical Multipass - a tool for creating Ubuntu VMs on demand. The provider is built using the modern Terraform Plugin Framework and provides full CRUD operations for managing Multipass instances.
+This is a **completed and functional** OpenTofu provider for Canonical Multipass - a tool for creating Ubuntu VMs on demand. The provider is built using the modern Terraform Plugin Framework and provides full CRUD operations for managing Multipass instances.
 
 ## Implemented Architecture
 
@@ -18,11 +18,11 @@ The provider follows standard Terraform provider patterns with this structure:
 
 ## Common Development Commands
 
-This project will likely use standard Go and Terraform provider tooling:
+This project uses standard Go and OpenTofu provider tooling:
 
 ```bash
 # Build the provider
-go build -o terraform-provider-multipass
+go build -o opentofu-provider-multipass
 
 # Run tests
 go test ./...
@@ -31,12 +31,12 @@ go test ./...
 go generate
 
 # Install provider locally for testing
-make install-local  # (if Makefile is added)
+make install-local
 ```
 
-## Terraform Provider Development Notes
+## OpenTofu Provider Development Notes
 
-- Terraform providers are typically written in Go using the Terraform Plugin SDK
+- OpenTofu providers are written in Go using the Terraform Plugin SDK (compatible)
 - Resources should implement CRUD operations (Create, Read, Update, Delete)
 - Provider configuration typically includes authentication details for the target system
 - Integration tests often require the actual service (Multipass) to be installed

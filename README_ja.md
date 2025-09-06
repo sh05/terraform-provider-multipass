@@ -1,6 +1,6 @@
-# Terraform Provider for Multipass
+# OpenTofu Provider for Multipass
 
-[Canonical Multipass](https://multipass.run/)を使用してUbuntu仮想マシンを管理するためのTerraformプロバイダーです。
+[Canonical Multipass](https://multipass.run/)を使用してUbuntu仮想マシンを管理するためのOpenTofuプロバイダーです。
 
 Multipassは、Linux、Windows、macOS向けの軽量VMマネージャーで、Ubuntuインスタンスを迅速に作成・管理できます。
 
@@ -15,7 +15,7 @@ Multipassは、Linux、Windows、macOS向けの軽量VMマネージャーで、U
 - 📊 既存インスタンスの照会とすべてのインスタンスの一覧表示
 - ⚙️ CPU、メモリ、ディスク、Ubuntuイメージバージョンの設定
 - 🔧 インスタンスのカスタマイズ用のCloud-initサポート
-- 📋 既存インスタンスのTerraform状態へのインポート
+- 📋 既存インスタンスのOpenTofu状態へのインポート
 - 🧪 包括的テストスイート
 
 🔄 **今後の拡張機能** ([ロードマップ](#ロードマップ)を参照)
@@ -26,15 +26,15 @@ Multipassは、Linux、Windows、macOS向けの軽量VMマネージャーで、U
 
 ## インストール
 
-### Terraform Registryから（近日公開予定）
+### OpenTofu Registryから（近日公開予定）
 
-Terraform Registryに公開されたら、Terraform設定で直接プロバイダーを使用できます：
+OpenTofu Registryに公開されたら、OpenTofu設定で直接プロバイダーを使用できます：
 
 ```hcl
 terraform {
   required_providers {
     multipass = {
-      source  = "registry.terraform.io/sh05/multipass"
+      source  = "registry.opentofu.org/sh05/multipass"
       version = "~> 0.1.0"
     }
   }
@@ -54,7 +54,7 @@ cd terraform-provider-multipass
 make install-local
 ```
 
-これにより、ローカル開発用にプロバイダーが `~/.terraform.d/plugins/` にインストールされます。
+これにより、ローカル開発用にプロバイダーが `~/.opentofu/plugins/` にインストールされます。
 
 ## 使用方法
 
@@ -64,7 +64,7 @@ make install-local
 terraform {
   required_providers {
     multipass = {
-      source  = "registry.terraform.io/sh05/multipass"
+      source  = "registry.opentofu.org/sh05/multipass"
       version = "~> 0.1.0"
     }
   }
@@ -210,14 +210,14 @@ TF_ACC=1 go test ./... -v
 
 # 特定のインスタンスでテスト
 cd examples/complete-examples/vm-info-output
-terraform init
-terraform plan
-terraform apply
+tofu init
+tofu plan
+tofu apply
 ```
 
 ## アーキテクチャ
 
-このプロバイダーは、モダンな[Terraform Plugin Framework](https://developer.hashicorp.com/terraform/plugin/framework)を使用して構築され、以下のパターンに従います：
+このプロバイダーは、モダンな[Terraform Plugin Framework](https://developer.hashicorp.com/terraform/plugin/framework)（OpenTofu互換）を使用して構築され、以下のパターンに従います：
 
 - **Provider**: メインプロバイダー設定とクライアント初期化
 - **Resources**: MultipassインスタンスのCRUD操作
