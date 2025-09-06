@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -31,15 +33,16 @@ type InstanceResource struct {
 
 // InstanceResourceModel describes the resource data model.
 type InstanceResourceModel struct {
-	Id        types.String `tfsdk:"id"`
-	Name      types.String `tfsdk:"name"`
-	Image     types.String `tfsdk:"image"`
-	CPU       types.String `tfsdk:"cpu"`
-	Memory    types.String `tfsdk:"memory"`
-	Disk      types.String `tfsdk:"disk"`
-	CloudInit types.String `tfsdk:"cloud_init"`
-	State     types.String `tfsdk:"state"`
-	IPv4      types.List   `tfsdk:"ipv4"`
+	Id               types.String   `tfsdk:"id"`
+	Name             types.String   `tfsdk:"name"`
+	Image            types.String   `tfsdk:"image"`
+	CPU              types.String   `tfsdk:"cpu"`
+	Memory           types.String   `tfsdk:"memory"`
+	Disk             types.String   `tfsdk:"disk"`
+	CloudInit        types.String   `tfsdk:"cloud_init"`
+	State            types.String   `tfsdk:"state"`
+	IPv4             types.List     `tfsdk:"ipv4"`
+	Timeouts         timeouts.Value `tfsdk:"timeouts"`
 }
 
 func (r *InstanceResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -117,6 +120,12 @@ func (r *InstanceResource) Schema(ctx context.Context, req resource.SchemaReques
 				Computed:            true,
 				ElementType:         types.StringType,
 			},
+			"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+				Create: true,
+				Read:   true,
+				Update: true,
+				Delete: true,
+			}),
 		},
 	}
 }
@@ -151,7 +160,18 @@ func (r *InstanceResource) Create(ctx context.Context, req resource.CreateReques
 		return
 	}
 
-	// Create launch options
+	// Create timeout with default of 15 minutes
+	createTimeout, diags := data.Timeouts.Create(ctx, 15*time.Minute)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Create context with timeout
+	ctx, cancel := context.WithTimeout(ctx, createTimeout)
+	defer cancel()
+
+	// Create launch options with Terraform create timeout
 	opts := &common.LaunchOptions{
 		Name:      data.Name.ValueString(),
 		Image:     data.Image.ValueString(),
@@ -159,6 +179,7 @@ func (r *InstanceResource) Create(ctx context.Context, req resource.CreateReques
 		Memory:    data.Memory.ValueString(),
 		Disk:      data.Disk.ValueString(),
 		CloudInit: data.CloudInit.ValueString(),
+		Timeout:   createTimeout.String(),
 	}
 
 	// Launch the instance
@@ -199,6 +220,17 @@ func (r *InstanceResource) Read(ctx context.Context, req resource.ReadRequest, r
 		return
 	}
 
+	// Read timeout with default of 5 minutes
+	readTimeout, diags := data.Timeouts.Read(ctx, 5*time.Minute)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Create context with timeout
+	ctx, cancel := context.WithTimeout(ctx, readTimeout)
+	defer cancel()
+
 	// Get the instance
 	instance, err := r.client.GetInstance(data.Name.ValueString())
 	if err != nil {
@@ -228,6 +260,17 @@ func (r *InstanceResource) Update(ctx context.Context, req resource.UpdateReques
 		return
 	}
 
+	// Update timeout with default of 10 minutes
+	updateTimeout, diags := data.Timeouts.Update(ctx, 10*time.Minute)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Create context with timeout
+	ctx, cancel := context.WithTimeout(ctx, updateTimeout)
+	defer cancel()
+
 	// For now, most updates require replacement since Multipass doesn't support
 	// changing instance configuration after creation. The schema marks most
 	// attributes as requiring replacement.
@@ -245,6 +288,17 @@ func (r *InstanceResource) Delete(ctx context.Context, req resource.DeleteReques
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	// Delete timeout with default of 10 minutes
+	deleteTimeout, diags := data.Timeouts.Delete(ctx, 10*time.Minute)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Create context with timeout
+	ctx, cancel := context.WithTimeout(ctx, deleteTimeout)
+	defer cancel()
 
 	// Delete the instance
 	tflog.Trace(ctx, "deleting multipass instance", map[string]interface{}{"name": data.Name.ValueString()})

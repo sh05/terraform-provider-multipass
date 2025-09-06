@@ -32,4 +32,5 @@ type LaunchOptions struct {
 	Memory    string
 	Disk      string
 	CloudInit string
+	Timeout   string // Multipass launch timeout (e.g., "5m", "10m")
 }

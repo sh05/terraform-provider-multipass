@@ -33,6 +33,7 @@ func TestMultipassClientLaunchOptions(t *testing.T) {
 		Memory:    "2G",
 		Disk:      "10G",
 		CloudInit: "/path/to/cloud-init.yaml",
+		Timeout:   "15m0s",
 	}
 
 	// We can't actually test Launch without multipass installed,
@@ -47,5 +48,9 @@ func TestMultipassClientLaunchOptions(t *testing.T) {
 
 	if opts.Image != "22.04" {
 		t.Errorf("Expected image to be '22.04', got %s", opts.Image)
+	}
+
+	if opts.Timeout != "15m0s" {
+		t.Errorf("Expected timeout to be '15m0s', got %s", opts.Timeout)
 	}
 }

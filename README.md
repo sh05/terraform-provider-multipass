@@ -78,6 +78,12 @@ resource "multipass_instance" "example" {
   cpu    = "2"
   memory = "2G"
   disk   = "10G"
+  
+  # Optional: Configure timeouts
+  timeouts {
+    create = "20m"  # Allow up to 20 minutes for instance creation
+    delete = "5m"   # Allow up to 5 minutes for deletion
+  }
 }
 
 # Get information about the instance
@@ -138,6 +144,11 @@ Manages a Multipass Ubuntu instance.
 - `memory` (Optional) - Memory allocation (e.g., "1G", "512M")
 - `disk` (Optional) - Disk space (e.g., "5G", "10G")
 - `cloud_init` (Optional) - Path to cloud-init configuration file
+- `timeouts` (Optional) - Timeout configuration block
+  - `create` (Optional) - Timeout for instance creation (default: 15 minutes)
+  - `read` (Optional) - Timeout for instance reads (default: 5 minutes)
+  - `update` (Optional) - Timeout for instance updates (default: 10 minutes)
+  - `delete` (Optional) - Timeout for instance deletion (default: 10 minutes)
 
 **Attributes:**
 - `id` - Instance identifier (same as name)

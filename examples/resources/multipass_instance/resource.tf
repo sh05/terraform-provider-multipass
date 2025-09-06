@@ -20,4 +20,10 @@ resource "multipass_instance" "with_cloud_init" {
   memory     = "4G"
   disk       = "20G"
   cloud_init = "./cloud-init.yaml"
+  
+  # Configure timeouts for longer operations
+  timeouts {
+    create = "20m"  # Cloud-init setup may take longer
+    delete = "5m"
+  }
 }

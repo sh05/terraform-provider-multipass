@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
+	"time"
 
 	"github.com/sh05/terraform-provider-multipass/internal/common"
 )
@@ -52,6 +53,18 @@ func (c *MultipassClient) Launch(opts *common.LaunchOptions) error {
 		args = append(args, "--cloud-init", opts.CloudInit)
 	}
 
+	if opts.Timeout != "" {
+		// Convert duration string to seconds for multipass
+		timeoutSeconds, err := c.durationToSeconds(opts.Timeout)
+		if err != nil {
+			return fmt.Errorf("invalid timeout format '%s': %w", opts.Timeout, err)
+		}
+		args = append(args, "--timeout", timeoutSeconds)
+	}
+
+	// Log the command being executed for debugging
+	fmt.Printf("Executing multipass command: %s %s\n", c.binaryPath, strings.Join(args, " "))
+
 	cmd := exec.Command(c.binaryPath, args...)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
@@ -59,6 +72,15 @@ func (c *MultipassClient) Launch(opts *common.LaunchOptions) error {
 	}
 
 	return nil
+}
+
+// durationToSeconds converts duration strings like "5m", "300s", "10m30s" to seconds string
+func (c *MultipassClient) durationToSeconds(durationStr string) (string, error) {
+	duration, err := time.ParseDuration(durationStr)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%.0f", duration.Seconds()), nil
 }
 
 // GetInstance retrieves information about a specific instance
