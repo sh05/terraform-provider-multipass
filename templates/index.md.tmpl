@@ -1,0 +1,18 @@
+---
+page_title: "multipass Provider"
+subcategory: ""
+description: |-
+  The Multipass provider enables Terraform to manage Ubuntu virtual machines using Canonical Multipass.
+---
+
+# Multipass Provider
+
+The Multipass provider enables Terraform to manage Ubuntu virtual machines using [Canonical Multipass](https://multipass.run/).
+
+Multipass is a tool to generate cloud-style Ubuntu VMs quickly on Linux, macOS and Windows. It gives you a simple but powerful CLI that allows you to quickly access an Ubuntu command line or create your own local mini-cloud.
+
+## Example Usage
+
+{{ tffile "examples/provider/provider.tf" }}
+
+{{ .SchemaMarkdown | trimspace }}
