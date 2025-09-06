@@ -4,6 +4,10 @@ A Terraform provider for managing Ubuntu virtual machines using [Canonical Multi
 
 Multipass is a lightweight VM manager for Linux, Windows and macOS that allows you to quickly create and manage Ubuntu instances.
 
+## ⚠️ Important Notice
+
+**This project was primarily generated using Claude Code AI assistance. The maintainer (sh05) has not been able to conduct sufficient review of all generated code. Please use this provider at your own risk and thoroughly test it in your environment before using in production. The maintainer cannot take responsibility for any issues or problems that may arise from using this provider.**
+
 ## Features
 
 ✅ **Implemented**
