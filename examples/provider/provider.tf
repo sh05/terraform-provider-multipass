@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     multipass = {
-      source = "sh05/multipass"
+      source  = "registry.opentofu.org/sh05/multipass"
+      version = "~> 0.1.0"
     }
   }
 }

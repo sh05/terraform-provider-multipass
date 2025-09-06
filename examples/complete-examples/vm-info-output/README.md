@@ -12,24 +12,24 @@ This example demonstrates how to create a Multipass VM instance and output its n
 
 ## Usage
 
-1. Initialize Terraform:
+1. Initialize OpenTofu:
    ```bash
-   terraform init
+   tofu init
    ```
 
 2. Plan the deployment:
    ```bash
-   terraform plan
+   tofu plan
    ```
 
 3. Apply the configuration:
    ```bash
-   terraform apply
+   tofu apply
    ```
 
 4. View the outputs:
    ```bash
-   terraform output
+   tofu output
    ```
 
 ## Expected Output
@@ -45,5 +45,5 @@ vm_state = "Running"
 
 To destroy the created resources:
 ```bash
-terraform destroy
+tofu destroy
 ```

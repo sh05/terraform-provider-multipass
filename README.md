@@ -1,6 +1,6 @@
-# Terraform Provider for Multipass
+# OpenTofu Provider for Multipass
 
-A Terraform provider for managing Ubuntu virtual machines using [Canonical Multipass](https://multipass.run/).
+An OpenTofu provider for managing Ubuntu virtual machines using [Canonical Multipass](https://multipass.run/).
 
 Multipass is a lightweight VM manager for Linux, Windows and macOS that allows you to quickly create and manage Ubuntu instances.
 
@@ -15,7 +15,7 @@ Multipass is a lightweight VM manager for Linux, Windows and macOS that allows y
 - 📊 Query existing instances and list all instances
 - ⚙️ Configure CPU, memory, disk, and Ubuntu image versions
 - 🔧 Cloud-init support for instance customization
-- 📋 Import existing instances into Terraform state
+- 📋 Import existing instances into OpenTofu state
 - 🧪 Comprehensive testing suite
 
 🔄 **Future Enhancements** (see [Roadmap](#roadmap))
@@ -26,15 +26,15 @@ Multipass is a lightweight VM manager for Linux, Windows and macOS that allows y
 
 ## Installation
 
-### From Terraform Registry (Coming Soon)
+### From OpenTofu Registry (Coming Soon)
 
-Once published to the Terraform Registry, you can use the provider directly in your Terraform configuration:
+Once published to the OpenTofu Registry, you can use the provider directly in your OpenTofu configuration:
 
 ```hcl
 terraform {
   required_providers {
     multipass = {
-      source  = "registry.terraform.io/sh05/multipass"
+      source  = "registry.opentofu.org/sh05/multipass"
       version = "~> 0.1.0"
     }
   }
@@ -54,7 +54,7 @@ cd terraform-provider-multipass
 make install-local
 ```
 
-This installs the provider to `~/.terraform.d/plugins/` for local development.
+This installs the provider to `~/.opentofu/plugins/` for local development.
 
 ## Usage
 
@@ -64,7 +64,7 @@ This installs the provider to `~/.terraform.d/plugins/` for local development.
 terraform {
   required_providers {
     multipass = {
-      source  = "registry.terraform.io/sh05/multipass"
+      source  = "registry.opentofu.org/sh05/multipass"
       version = "~> 0.1.0"
     }
   }
@@ -210,14 +210,14 @@ TF_ACC=1 go test ./... -v
 
 # Test with specific instance
 cd examples/complete-examples/vm-info-output
-terraform init
-terraform plan
-terraform apply
+tofu init
+tofu plan
+tofu apply
 ```
 
 ## Architecture
 
-The provider is built using the modern [Terraform Plugin Framework](https://developer.hashicorp.com/terraform/plugin/framework) and follows these patterns:
+The provider is built using the modern [Terraform Plugin Framework](https://developer.hashicorp.com/terraform/plugin/framework) (compatible with OpenTofu) and follows these patterns:
 
 - **Provider**: Main provider configuration and client initialization
 - **Resources**: CRUD operations for Multipass instances

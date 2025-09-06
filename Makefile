@@ -8,14 +8,14 @@ testacc:
 # Build the provider
 .PHONY: build
 build:
-	go build -o terraform-provider-multipass
+	go build -o opentofu-provider-multipass
 
 # Install the provider locally for development
 .PHONY: install-local
 install-local: build
 	@OS_ARCH=$$(go env GOOS)_$$(go env GOARCH) && \
-	mkdir -p ~/.terraform.d/plugins/registry.terraform.io/sh05/multipass/0.1.0/$$OS_ARCH && \
-	cp terraform-provider-multipass ~/.terraform.d/plugins/registry.terraform.io/sh05/multipass/0.1.0/$$OS_ARCH/ && \
+	mkdir -p ~/.opentofu/plugins/registry.opentofu.org/sh05/multipass/0.1.0/$$OS_ARCH && \
+	cp opentofu-provider-multipass ~/.opentofu/plugins/registry.opentofu.org/sh05/multipass/0.1.0/$$OS_ARCH/ && \
 	echo "Provider installed for $$OS_ARCH"
 
 # Run unit tests
@@ -46,7 +46,7 @@ lint:
 # Clean build artifacts
 .PHONY: clean
 clean:
-	rm -f terraform-provider-multipass
+	rm -f opentofu-provider-multipass
 	go clean
 
 # Download dependencies

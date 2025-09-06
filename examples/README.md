@@ -1,6 +1,6 @@
-# Terraform Provider Multipass Examples
+# OpenTofu Provider Multipass Examples
 
-This directory contains comprehensive examples demonstrating how to use the Multipass Terraform provider.
+This directory contains comprehensive examples demonstrating how to use the Multipass OpenTofu provider.
 
 ## Directory Structure
 
@@ -32,9 +32,9 @@ For a complete working example that demonstrates VM creation and information out
 
 ```bash
 cd complete-examples/vm-info-output
-terraform init
-terraform apply
-terraform output
+tofu init
+tofu apply
+tofu output
 ```
 
 ## Example Categories
@@ -47,7 +47,7 @@ terraform output
 ### Advanced Usage
 - **Cloud-Init Integration**: Using cloud-init for VM customization
 - **Data Sources**: Querying existing instance information
-- **Import Existing Instances**: Managing pre-existing VMs with Terraform
+- **Import Existing Instances**: Managing pre-existing VMs with OpenTofu
 
 ### Output and Monitoring
 - **Instance Information**: Retrieving VM IP addresses, state, and metadata
@@ -59,19 +59,19 @@ terraform output
    ```bash
    cd resources/multipass_instance
    # Edit resource.tf for your needs
-   terraform init && terraform apply
+   tofu init && tofu apply
    ```
 
 2. **Query Existing Infrastructure**:
    ```bash
    cd data-sources/multipass_instance
-   terraform init && terraform apply
+   tofu init && tofu apply
    ```
 
 3. **Complete VM Lifecycle**:
    ```bash
    cd complete-examples/vm-info-output
-   terraform init && terraform apply
+   tofu init && tofu apply
    # Work with your VM
-   terraform destroy
+   tofu destroy
    ```
